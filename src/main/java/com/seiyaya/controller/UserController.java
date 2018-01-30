@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.seiyaya.bean.User;
 import com.seiyaya.service.UserService;
-import com.seiyaya.service.impl.UserServiceImplJDBCTemplate;
+import com.seiyaya.service.impl.UserServiceImplMybatis;
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
 	
-	@Resource( name = UserServiceImplJDBCTemplate.BEAN_NAME)
+	@Resource( name = UserServiceImplMybatis.BEAN_NAME)
 	private UserService userService;
 	
 	
