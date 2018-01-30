@@ -1,6 +1,7 @@
 package com.seiyaya.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,12 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.seiyaya.bean.User;
 import com.seiyaya.service.UserService;
+import com.seiyaya.service.impl.UserServiceImplJDBCTemplate;
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
 	
-	@Autowired
+	@Resource( name = UserServiceImplJDBCTemplate.BEAN_NAME)
 	private UserService userService;
 	
 	
@@ -24,7 +26,7 @@ public class UserController {
 	 * @author 王佳
 	 * @created 2018年1月29日 下午2:49:23
 	 */
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/")
 	public String getUserList(ModelMap model) {
 		model.addAttribute("userList", userService.queryAllUser());
 		return "userList";
@@ -45,18 +47,18 @@ public class UserController {
 	
 	@RequestMapping(value = "/query/{id}" , method = RequestMethod.GET)
 	public String queryUser(@PathVariable Long id , ModelMap model) {
-		model.addAttribute("action", "query");
 		model.addAttribute("user", userService.queryUserById(id));
+		model.addAttribute("action", "update");
 		return "userForm";
 	}
 	
 	@RequestMapping(value = "/update" , method = RequestMethod.POST)
 	public String updateUser(@ModelAttribute User user) {
 		userService.update(user);
-        return "redirect:/users/";
+		return "redirect:/users/";
 	}
 	
-	@RequestMapping(value = "/del/{id}" , method = RequestMethod.POST)
+	@RequestMapping(value = "/del/{id}" , method = RequestMethod.GET)
 	public String delUser(@PathVariable Long id) {
 		userService.delUserById(id);
 		return "redirect:/users/";

@@ -34,7 +34,7 @@
                         <td><a th:href="@{/users/query/{userId}(userId=${user.id})}" th:text="${user.name}"></a></td>
                         <td th:text="${user.age}"></td>
                         <td th:text="${user.birthday}"></td>
-                        <td><a class="btn btn-danger" th:href="@{/users/delete/{userId}(userId=${user.id})}">删除</a></td>
+                        <td><a class="btn btn-danger" th:href="@{/users/del/{userId}(userId=${user.id})}">删除</a></td>
                     </tr>
                 </tbody>
             </table>

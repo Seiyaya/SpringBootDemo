@@ -10,10 +10,12 @@ import com.seiyaya.bean.User;
 import com.seiyaya.dao.UserRepository;
 import com.seiyaya.service.UserService;
 
-@Service
+@Service(value = "userServiceByJPA")
 public class UserServiceImpl implements UserService {
 
 	private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
+	
+	public static final String BEAN_NAME = "userServiceByJPA";
 
 	@Autowired
 	private UserRepository userDao;
