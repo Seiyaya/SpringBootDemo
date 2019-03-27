@@ -38,4 +38,16 @@ public class User implements Serializable {
 	 * 出生时间
 	 */
 	private String birthday;
+
+	public User() {
+		super();
+	}
+	
+	public User(String name, Integer age, String birthday) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.birthday = birthday;
+	}
+	
 }

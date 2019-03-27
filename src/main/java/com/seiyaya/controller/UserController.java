@@ -1,5 +1,8 @@
 package com.seiyaya.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.seiyaya.bean.User;
 import com.seiyaya.exception.MyException;
@@ -69,5 +73,21 @@ public class UserController {
 	@GetMapping("/user/exception")
 	public String exception() {
 		throw new MyException(1,"调用方法失败");
+	}
+	
+	/**
+	 *  测试多数据源的情况下添加数据
+	 * @author Seiyaya
+	 * @date 2019年3月28日 上午2:06:04
+	 * @return
+	 */
+	@GetMapping("/multi/db")
+	@ResponseBody
+	public Map<String,Object> multiDataSource(){
+		Map<String,Object> map = new HashMap<>();
+		map.put("result", "111");
+		User user = new User("zhangsan", 32, "20190328");
+		userService.addUser(user);
+		return map;
 	}
 }
