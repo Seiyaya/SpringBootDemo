@@ -2,7 +2,6 @@ package com.seiyaya.service.impl;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +11,6 @@ import com.seiyaya.service.UserService;
 
 @Service(value = "userServiceByJPA")
 public class UserServiceImpl implements UserService {
-
-	private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
 	
 	public static final String BEAN_NAME = "userServiceByJPA";
 

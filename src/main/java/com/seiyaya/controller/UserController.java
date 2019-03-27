@@ -4,12 +4,14 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.seiyaya.bean.User;
+import com.seiyaya.exception.MyException;
 import com.seiyaya.service.UserService;
 import com.seiyaya.service.impl.UserServiceImplMybatis;
 
@@ -62,5 +64,10 @@ public class UserController {
 	public String delUser(@PathVariable Long id) {
 		userService.delUserById(id);
 		return "redirect:/users/";
+	}
+	
+	@GetMapping("/user/exception")
+	public String exception() {
+		throw new MyException(1,"调用方法失败");
 	}
 }
