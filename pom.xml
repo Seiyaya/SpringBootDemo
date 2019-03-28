@@ -104,6 +104,11 @@
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jta-atomikos</artifactId>
+		</dependency>
 
 		<!--spring boot 热部署 -->
 		<dependency>

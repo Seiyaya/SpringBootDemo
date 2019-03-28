@@ -14,6 +14,6 @@ public interface UserMapper {
 	@Select("select * from user")
 	List<User> queryUsers();
 	
-	@Insert("insert into user(age,birthday,name) values (#{age},#{birthday},#{name})")
+	@Insert("insert into user(age,birthday,name) values (#{age,jdbcType=INTEGER},#{birthday,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR})")
 	int addUser(User user);
 }

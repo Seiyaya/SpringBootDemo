@@ -40,5 +40,12 @@ public interface UserService {
 	 * @created 2018年1月29日 下午3:04:50
 	 */
 	void delUserById(Long id);
+
+	/**
+	 *  异步发送短信
+	 * @author Seiyaya
+	 * @date 2019年3月28日 上午11:40:19
+	 */
+	void sendSms();
 	
 }

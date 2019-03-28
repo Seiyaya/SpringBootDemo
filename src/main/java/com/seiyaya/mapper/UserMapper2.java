@@ -8,6 +8,6 @@ import com.seiyaya.bean.User;
 @Mapper
 public interface UserMapper2 {
 	
-	@Insert("insert into user(age,birthday,name) values (#{age},#{birthday,jdbcType=VARCHAR},#{name})")
+	@Insert("insert into user(age,birthday,name) values (#{age,jdbcType=INTEGER},#{birthday,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR})")
 	int addUser(User user);
 }

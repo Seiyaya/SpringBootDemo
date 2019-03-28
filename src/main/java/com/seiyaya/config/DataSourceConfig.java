@@ -1,5 +1,7 @@
 package com.seiyaya.config;
 
+import java.sql.SQLException;
+
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -9,10 +11,13 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlXADataSource;
 
 @Configuration
 @MapperScan(value = "com.seiyaya.dao",sqlSessionFactoryRef = DataSourceConfig.FACTORY_NAME)
@@ -27,8 +32,27 @@ public class DataSourceConfig {
 	@Qualifier("primaryDataSource")
 	@ConfigurationProperties(prefix = "spring.datasource")
 	@Primary
-	public DataSource primaryDataSource() {
-		return DataSourceBuilder.create().build();
+	public DataSource primaryDataSource(PrimaryConfig config) throws SQLException {
+//		return DataSourceBuilder.create().build();		//集中式的数据源配置
+			MysqlXADataSource mysqlXADataSource = new MysqlXADataSource();
+			mysqlXADataSource.setUrl(config.getUrl());
+			mysqlXADataSource.setPinGlobalTxToPhysicalConnection(true);
+			mysqlXADataSource.setPassword(config.getPassword());
+			mysqlXADataSource.setUser(config.getUsername());
+			
+			AtomikosDataSourceBean bean = new AtomikosDataSourceBean();
+			bean.setXaDataSource(mysqlXADataSource);
+			bean.setUniqueResourceName("primaryDataSource");
+			
+			bean.setMinPoolSize(config.getMinPoolSize());
+			bean.setMaxPoolSize(config.getMaxPoolSize());
+			bean.setMaxLifetime(config.getMaxLifeTime());
+			bean.setBorrowConnectionTimeout(config.getBorrowConnectionTimeout());
+			bean.setLoginTimeout(config.getLoginTimeout());
+			bean.setMaintenanceInterval(config.getMaintenanceInterval());
+			bean.setMaxIdleTime(config.getMaxIdleTime());
+			bean.setTestQuery(config.getTestQuery());
+			return mysqlXADataSource;
 	}
 	
 	@Bean(FACTORY_NAME)

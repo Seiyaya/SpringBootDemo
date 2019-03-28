@@ -43,4 +43,10 @@ public class UserServiceImpl implements UserService {
 		userDao.delete(id);
 	}
 
+	@Override
+	public void sendSms() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

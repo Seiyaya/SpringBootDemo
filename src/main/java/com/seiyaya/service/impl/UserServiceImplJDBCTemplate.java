@@ -71,4 +71,10 @@ public class UserServiceImplJDBCTemplate implements UserService{
 		jdbcTemplate.update("delete from user where id = ?" , id);
 	}
 
+	@Override
+	public void sendSms() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
